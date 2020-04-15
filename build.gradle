@@ -1,0 +1,74 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.stehno.natives' version '0.2.4'
+}
+ext {
+     javaLanguageLevel = '1.8'
+     lwjglVersion = "2.9.3"
+
+    libraries = [
+            lwjgl: "org.lwjgl.lwjgl:lwjgl:$lwjglVersion"
+    ]
+}
+
+version = '0.1.0'
+sourceSets.main.java.srcDirs = ['src']
+mainClassName = 'ui.ACFRenderer'
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.code.gson:gson:2.8.6'
+    compile 'ca.weblite:java-objc-bridge:1.0.0'
+    compile 'net.dean.jraw:JRAW:1.1.0'
+    compile 'com.github.davidmoten:word-wrap:0.1.6'
+    compile 'org.slick2d:slick2d-core:1.0.1'
+    compile "org.lwjgl.lwjgl:lwjgl:$lwjglVersion"
+}
+
+natives {
+    lwjglVersion = "2.9.3"
+    def os = getOS()
+    println "Unpacking natives for $os to ./build/natives/$os"
+    jars = [ 
+        "lwjgl-platform-$lwjglVersion-natives-osx",
+        "lwjgl-platform-$lwjglVersion-natives-windows",
+        "lwjgl-platform-$lwjglVersion-natives-linux" ]
+    platforms = "$os"
+}
+
+run {
+    dependsOn 'unpackNatives'
+    systemProperty 'java.library.path', file("build/natives/${getOS()}")
+}
+
+test {
+    maxHeapSize = "1024m"
+    jvmArgs '-XX:MaxPermSize=256m'
+    systemProperty 'java.library.path', file("build/natives/${getOS()}")
+}
+
+def getOS() {
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        return 'win'
+    }
+    if (Os.isFamily(Os.FAMILY_MAC)) {
+        return 'osx'
+    }
+    if (Os.isFamily(Os.FAMILY_UNIX))
+        return 'linux' //this is not really all that correct
+    throw new GradleException('Your OS does not seem to be supported')
+}
+
+task checkOS  {
+  println "Operating System: ${getOS()}"
+}
+task wrapper(type: Wrapper) {
+   gradleVersion = '2.7'
+}
