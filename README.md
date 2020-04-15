@@ -11,16 +11,22 @@ git clone https://github.com/DataPools/AutoCF
 cd AutoCF
 ./gradlew run
 ```
-This will install all necessary dependencies and run it.
+This will install all necessary dependencies and run it. It can take ~20 seconds to start displaying anything.
 
-## Config
-
+## Configuration
+```
+{
+  "postId": "g14q8l",
+  "maxPosts": 20,
+  "videoLength": 300
+}
+```
 AutoCF can be configured through it's `config.json` file. The config is generated after it is run for the first time.
 
 Inside this file are options for the Reddit thread's post id, the maximum amount of posts you want to show, and the amount of time (in seconds) until an ending screen is shown.
 
 ## TTS
-AutoCF only works on OS X, because it has a built in TTS engine. Currently, Windows/Linux do not have narrator support. 
+AutoCF narration only works on OS X, because it has a built in TTS engine that Java can interface with. Currently, Windows and Linux do not have narrator support. 
 
 ## Contributing
 
