@@ -21,7 +21,7 @@ This will install all necessary dependencies and run it. It can take ~20 seconds
   "videoLength": 300
 }
 ```
-AutoCF can be configured through it's `config.json` file. The config is generated after it is run for the first time.
+AutoCF can be configured through the `config.json` file. The config is generated after it is run for the first time.
 
 Inside this file are options for the Reddit thread's post id, the maximum amount of posts you want to show, and the amount of time (in seconds) until an ending screen is shown.
 

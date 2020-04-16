@@ -53,12 +53,18 @@ public class ProfanityFilter {
 		while(itr.hasNext()) {
 			Entry<String, String[]> swearWordEntry = itr.next();
 			String swearWord = swearWordEntry.getKey();
-			String replacementString = ""+swearWord.charAt(0);
+			String replacementString = "";
 			//Replace every letter after the first in the swear word with asterisks
 			for(int i=1;i<swearWord.length();i++) {
 				replacementString+="*";
 			}
-			input = input.replace(swearWord, replacementString);
+			//This whole loop is to find swear words that have different cases
+			while(input.toLowerCase().contains(swearWord)) {
+				int indexOfActualWord = input.toLowerCase().indexOf(swearWord);
+				String actualWordCase = input.substring(indexOfActualWord,indexOfActualWord+swearWord.length());
+				//Get the actual first letter's case and then put the asterisks after it
+				input = input.replace(actualWordCase, actualWordCase.charAt(0)+replacementString);
+			}
 		}
 		return input;
 	}
