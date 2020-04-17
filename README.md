@@ -3,6 +3,7 @@ AutoCF stands for "Automated Content Farm" and is an application that creates vi
 
 With AutoCF, you can automate the creation of these low quality videos.
 
+You can view an example of a generated video [here](https://www.youtube.com/watch?v=bQcwFujpVX8).
 
 ## Installation
 You can run AutoCF by doing the following:

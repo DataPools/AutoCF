@@ -30,12 +30,13 @@ public class VisibleNarratorOSX extends NSObject implements VisibleNarrator {
   @Msg(selector = "speechSynthesizer:didFinishSpeaking:", signature = "v@:B")
   public void didFinishSpeaking(boolean naturally) {
 	  if(speakingQueue.isEmpty()) {
-		  speaking = false;
+		  speaking = (boolean) this.synth.sendBoolean("isSpeaking");
 	  }
 	  else {
 		  startSpeaking(speakingQueue.poll());
 	  }
   }
+  
   public boolean isSpeaking() {
 	  if(speakingQueue.isEmpty()) {
 		  return speaking;

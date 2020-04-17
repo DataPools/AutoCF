@@ -8,6 +8,7 @@ lib/
 *.swp
 *~.nib
 *.json
+*.log
 .DS_Store
 local.properties
 .settings/
